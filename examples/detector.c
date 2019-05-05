@@ -560,8 +560,8 @@ void validate_detector_recall(char *cfgfile, char *weightfile)
 
 void print_yolo_detections_new1(int total, detection *dets)
 {
-    int i, j;
-    printf("hu ha \n");
+    int i;
+    printf("Number of boxes is ");
     printf("%d \n",total);
     // float xmin = dets[0].bbox.x - dets[0].bbox.w/2.;
     // float xmax = dets[0].bbox.x + dets[0].bbox.w/2.;
@@ -588,29 +588,6 @@ void print_yolo_detections_new1(int total, detection *dets)
     }
 }
 
-// void print_yolo_detections_old(FILE **fps, char *id, int total, int classes, int w, int h, detection *dets)
-// {
-//     int i, j;
-//     printf("hu ha");
-//     printf("%d \n",total);
-//     for(i = 0; i < total; ++i){
-//         float xmin = dets[i].bbox.x - dets[i].bbox.w/2.;
-//         float xmax = dets[i].bbox.x + dets[i].bbox.w/2.;
-//         float ymin = dets[i].bbox.y - dets[i].bbox.h/2.;
-//         float ymax = dets[i].bbox.y + dets[i].bbox.h/2.;
-
-//         if (xmin < 0) xmin = 0;
-//         if (ymin < 0) ymin = 0;
-//         if (xmax > w) xmax = w;
-//         if (ymax > h) ymax = h;
-//         printf("%f %f %f %f \n", xmin, xmax, ymin, ymax);
-
-//         for(j = 0; j < classes; ++j){
-//             if (dets[i].prob[j]) fprintf(fps[j], "%s %f %f %f %f %f\n", id, dets[i].prob[j],
-//                     xmin, ymin, xmax, ymax);
-//         }
-//     }
-// }
 
 
 void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filename, float thresh, float hier_thresh, char *outfile, int fullscreen)
@@ -655,7 +632,7 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
         detection *dets = get_network_boxes(net, im.w, im.h, thresh, hier_thresh, 0, 1, &nboxes);
         // print_yolo_detections_old(fps, id, l.side*l.side*l.n, classes, w, h, dets);
         // printf("%d\n");
-        print_yolo_detections_new1(sizeof(dets),  dets);
+        print_yolo_detections_new1(nboxes,  dets);
 
         //printf("%d\n", nboxes);
         //if (nms) do_nms_obj(boxes, probs, l.w*l.h*l.n, l.classes, nms);
